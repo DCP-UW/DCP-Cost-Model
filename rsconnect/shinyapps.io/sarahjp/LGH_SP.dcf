@@ -1,0 +1,12 @@
+name: LGH_SP
+title: LGH_SP
+username:
+account: sarahjp
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2326666
+bundleId: 3176422
+url: https://sarahjp.shinyapps.io/LGH_SP/
+when: 1590095669.60915
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,133 @@
+---
+title: "Figure development"
+author: "Yoshito Kawakatsu"
+date: "March 22, 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls()) #Remove all
+library(dplyr)
+library(ggplot2)
+library(readxl)
+library(tidyverse)
+library(kableExtra)
+```
+
+
+```{r}
+lic.table <- read.csv("DCP3_Costing_data_edit_table_LIC.csv")
+lmic.table <- read.csv("DCP3_Costing_data_edit_table_LMIC.csv")
+
+lic.table <- lic.table %>% 
+  filter(is.na(HPP) == F)
+
+lmic.table <- lmic.table %>% 
+  filter(is.na(HPP) == F)
+
+levels(lic.table$Objective)
+```
+
+
+```{r}
+all.table <- rbind(lic.table, lmic.table)
+
+levels(all.table$Platform)
+
+    sum_increment <- sum(all.table$increment_cost, na.rm = T)
+    sum_total <- sum(all.table$total_cost, na.rm = T)
+    
+    
+    all.table.sum <- all.table %>%
+      group_by(Platform, Urgency) %>%
+      summarise(increment_sum = (sum(increment_cost, na.rm = T)/sum_increment)*100,
+                Total_sum = (sum(total_cost, na.rm = T)/sum_total)*100)
+    
+    
+   all.table.sum$Platform<- fct_relevel(all.table.sum$Platform,
+                                        "Referral and speacialty hospitals",
+                                        "First-level hospital",
+                                        "Health center",
+                                        "Community",
+                                        "Population based"
+                                               )
+   
+   
+    # all.table.sum$Platform <- fct_recode(all.table.sum$Platform,
+    #                                      "Population based" = "Population-based Health Interventions")
+    
+    levels(all.table.sum$Urgency)
+    
+       all.table.sum$Urgency<- fct_relevel(all.table.sum$Urgency,
+                                        "Urgent",
+                                        "Chronic",
+                                        "Time-bound (non-urgent)"
+                                               )
+    
+    
+        # all.table.sum$Urgency <- fct_recode(all.table.sum$Urgency,
+        #                                  "Time-bound (non-urgent)" = "Routine",
+        #                                  "Chronic" = "Ongoing")
+       
+     
+```
+
+```{r}
+library(RColorBrewer)
+display.brewer.all() # shows the different palettes you can choose from
+
+f1 <- ggplot(all.table.sum, 
+                             aes(y = increment_sum, x = Platform, fill = Urgency)) + 
+                  coord_flip() + 
+                  geom_bar(stat = "identity", position = "stack", width = 0.525) +
+                  theme(legend.position="top", 
+                        axis.text.x = element_text(angle = 0, hjust = 0.5, vjust = 0.5, size = 10))+ 
+                  theme_minimal() +
+                  ylab("") +
+                  xlab("LIC") 
+  
+
+
+    f1 + scale_fill_manual(values=c("#999999", "#0068b7", "#ff8000"))
+    
+
+    f1
+    
+    grid.arrange(f1,f1)
+```
+
+
+```{r}
+    all.table.sum2 <- all.table %>%
+      group_by(Objective) %>%
+      summarise(total = sum(increment_cost, na.rm = T)/1000000000)
+
+all.table.sum2$type <- "Incremental cost"
+
+    all.table.sum3 <- all.table %>%
+      group_by(Objective) %>%
+      summarise(total = sum(current_cost, na.rm = T)/1000000000)
+    
+all.table.sum3$type <- "Current spending"
+
+all.table.both <- rbind(all.table.sum2, all.table.sum3)
+
+
+
+f4 <- ggplot(all.table.both, 
+             aes(y = total, x = Objective, fill = type)) + 
+                  #coord_flip() + 
+                  geom_bar(stat = "identity", position = "stack", width = 0.525) +
+                  theme_minimal() +
+  theme(legend.position=c(0.9 ,0.9), 
+                        axis.text.x = element_text(angle = 45, hjust = 0.5, vjust = 0.5, size = 10))+
+                  ylab("") +
+                  xlab("LIC") 
+
+f4
+
+grid.arrange(f4,f4, nrow = 1)
+                
+```
+

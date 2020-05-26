@@ -1,0 +1,12 @@
+name: DCP3_LGH_final
+title: DCP3_LGH_final
+username:
+account: yoshitok
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1954115
+bundleId: 2886561
+url: https://yoshitok.shinyapps.io/DCP3_LGH_final/
+when: 1584366445.83961
+asMultiple: FALSE
+asStatic: FALSE

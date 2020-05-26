@@ -1,0 +1,12 @@
+name: DCP3_LGH_final_Rshiny
+title: DCP3_LGH_final_Rshiny
+username:
+account: dcp-uw
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2161285
+bundleId: 3047883
+url: https://dcp-uw.shinyapps.io/DCP3_LGH_final_Rshiny/
+when: 1587526671.51569
+asMultiple: FALSE
+asStatic: FALSE

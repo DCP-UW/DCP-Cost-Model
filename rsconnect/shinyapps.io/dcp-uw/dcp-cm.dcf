@@ -1,0 +1,12 @@
+name: dcp-cm
+title: dcp-cm
+username:
+account: dcp-uw
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2164951
+bundleId: 3188080
+url: https://dcp-uw.shinyapps.io/dcp-cm/
+when: 1590424963.9582
+asMultiple: FALSE
+asStatic: FALSE
