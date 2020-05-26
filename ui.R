@@ -377,7 +377,7 @@ fluidRow(column(1,""),
            )),
 tabPanel(p("Scenario analysis", class="tab"),
          sidebarPanel(
-           p("The default setting of cost estimation in the paper used the following settings:"),br(),br(),
+           p("The default setting of cost estimation in the paper used the following settings:"),
            p("- Target coverage = 0.80", br(),
              "- Tradable cost ratio = 0.3", br(), 
              "- Ancillary health facility cost = 0.50", br(),
