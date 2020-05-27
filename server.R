@@ -1528,6 +1528,16 @@ shinyServer(function(input, output) {
     
     result.user.both.sum[5,1] <- "Referral and specialty hospitals"
     
+    result.user.both.sum$Incremental_cost_LIC <- as.character(result.user.both.sum$Incremental_cost_LIC)
+    result.user.both.sum$Diff_LIC <- as.character(result.user.both.sum$Diff_LIC)
+    result.user.both.sum$Total_cost_LIC <- as.character(result.user.both.sum$Total_cost_LIC)
+    result.user.both.sum$Diff_total_LIC <- as.character(result.user.both.sum$Diff_total_LIC)
+    result.user.both.sum$Incremental_cost_LMIC <- as.character(result.user.both.sum$Incremental_cost_LMIC)
+    result.user.both.sum$Diff_LMIC <- as.character(result.user.both.sum$Diff_LMIC)
+    result.user.both.sum$Total_cost_LMIC <- as.character(result.user.both.sum$Total_cost_LMIC)
+    result.user.both.sum$Diff_total_LMIC <- as.character(result.user.both.sum$Diff_total_LMIC)
+    
+    
     result.user.both.sum %>%
       rename("Incremental cost (US$, billions)" = Incremental_cost_LIC,
              "Diff. from the default setting (US$, billions)" = Diff_LIC,
@@ -1542,7 +1552,7 @@ shinyServer(function(input, output) {
   
   output$result.user.table <- function() {
     result.user.both.sum() %>%
-      knitr::kable("html") %>%
+      knitr::kable("html", align='r') %>%
       kable_styling("striped", full_width = F) %>%
       add_header_above(c(" ","LICs" = 4, "LMICs" = 4))
   }
